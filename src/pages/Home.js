@@ -2,8 +2,8 @@ import React from 'react'
 
 /* Containers */
 // import MyContainer from 'containers/MyContainer'
-import Counter from 'containers/Counter'
-import Calendar from 'containers/Calendar'
+// import Counter from 'containers/Counter'
+// import Calendar from 'containers/Calendar'
 
 import Header from 'components/Header'
 import Search from 'components/Search'

@@ -31,12 +31,12 @@ function setup(value = 0) {
 
 test('render', (t) => {
   const { heading } = setup()
-  t.same(heading.text(), 'Counter')
+  t.is(heading.text(), 'Counter')
 })
 
 test('display count', (t) => {
   const { p } = setup(SIX)
-  t.same(p.text(), 'Current value: ' + SIX)
+  t.is(p.text(), 'Current value: ' + SIX)
 })
 
 test('first button increments', () => {

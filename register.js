@@ -22,7 +22,7 @@ require('css-modules-require-hook')({
   preprocessCss: function (css, filename) {
     return stylus(css)
       .set('filename', filename)
-      .render();
+      .render()
   }
 })
 

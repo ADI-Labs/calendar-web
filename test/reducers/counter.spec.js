@@ -1,6 +1,6 @@
 import test from 'ava'
 import reducerTest from 'immutableReducerTest'
-import counterReducer from 'reducers/counter.js'
+import counterReducer from 'modules/counter.js'
 import * as counterActions from 'actions/counter.js'
 const num = 4
 

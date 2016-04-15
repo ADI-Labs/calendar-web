@@ -21,6 +21,7 @@ module.exports = {
     proxy: { "/api/*": "http://localhost:5000" },
     stats: { chunks: false }
   },
+  target: "node",
   resolve: {
     root: srcPath
   },
@@ -75,6 +76,8 @@ module.exports = {
       template: path.resolve(srcPath, "assets/template.dev.ejs")
     }),
     new webpack.DefinePlugin({
+      "global": JSON.stringify({}), // fix babel-polyfill in node env.
+      "process.env.NODE_ENV": JSON.stringify("development"),
       "__DEV__": true
     }),
     new webpack.HotModuleReplacementPlugin(),

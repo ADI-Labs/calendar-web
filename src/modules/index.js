@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { routerReducer as routing } from 'react-router-redux'
+import { combineReducers } from 'redux-immutablejs'
+import routing from './routing'
 import counter from './counter'
 
 const rootReducer = combineReducers({

@@ -3,6 +3,14 @@ import 'assets/css/normalize.css'
 import 'assets/css/skeleton.css'
 import 'assets/css/custom.css'
 
-module.exports = process.env.NODE_ENV === 'production' ?
-  require('./Root.prod')
-: require('./Root.dev')
+import React from 'react'
+import { Provider } from 'react-redux'
+import { RouterContext } from 'react-router'
+
+export default function Root({ store, ...renderProps }) {
+  return (
+    <Provider store={ store }>
+      <RouterContext { ...renderProps } />
+    </Provider>
+  )
+}

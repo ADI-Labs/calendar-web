@@ -5,9 +5,13 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import routes from 'routes'
 import configureStore from 'store/configureStore'
 
-const rootElement   = document.getElementById('root')
-const store         = configureStore(window.__INITIAL_STATE__)
-const history       = syncHistoryWithStore(browserHistory, store)
+const rootElement = document.getElementById('root')
+const store = configureStore(window.__INITIAL_STATE__)
+const history = syncHistoryWithStore(
+  browserHistory,
+  store,
+  { selectLocationState: state => state.get('routing') }
+)
 
 let render = () => {
   const App = require('containers/Root').default
@@ -19,7 +23,15 @@ let render = () => {
 if (module.hot) {
   // Support hot reloading of components
   // and display an overlay for runtime errors
-  const renderApp = render
+  const renderApp = () => {
+    const App = require('containers/Root').default
+    const DevTools = require('containers/DevTools').default
+    match({ history, routes }, (error, redirectLocation, renderProps) => {
+      ReactDOM.render(<App store={ store } { ...renderProps } />, rootElement)
+      ReactDOM.render(<DevTools store={ store } />, document.getElementById('dev-tools'))
+    })
+  }
+
   const renderError = (error) => {
     const RedBox = require('redbox-react')
     ReactDOM.render(

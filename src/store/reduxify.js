@@ -18,7 +18,7 @@ export default function reduxify({ state, selector, actions }) {
   if (state)
     var mapStateToProps = (STATE) => selector ?
       { [state]: selector(STATE) }
-    : { [state]: STATE[state] }
+    : { [state]: STATE.get(state) }
 
   /* the container will be provided actions */
   if (actions)

@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
-import reducers from 'reducers'
+import { fromJS } from 'immutable'
+import reducers from 'modules'
 
 export default function configureStore(initialState) {
   return createStore(
     reducers,
-    initialState,
+    fromJS(initialState),
     applyMiddleware(thunk, promiseMiddleware)
   )
 }

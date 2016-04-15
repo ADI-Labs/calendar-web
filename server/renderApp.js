@@ -12,8 +12,8 @@ export default function renderApp(renderProps) {
     <App store={ store } { ...renderProps } />
   )
 
-  // Grab the initial state from our Redux store
-  const initialState = JSON.stringify(toJS(store.getState()))
+  // Render the initial application state to a json string.
+  const initialState = JSON.stringify(store.getState())
 
   // Send the rendered page back to the client
   return {
@@ -21,16 +21,3 @@ export default function renderApp(renderProps) {
     initialState
   }
 }
-
-function toJS(js) {
-  for (let el in js) {
-    if (!isPlainObj(js[el]) && !Array.isArray(js[el]))
-      js[el] = js[el].toJS()
-  }
-  return js
-}
-
-function isPlainObj(value) {
-  return value && (value.constructor === Object || value.constructor === undefined);
-}
-

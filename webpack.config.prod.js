@@ -91,6 +91,7 @@ module.exports = {
       template: path.resolve(srcPath, "assets/template.prod.ejs")
     }),
     new webpack.DefinePlugin({
+      "global": JSON.stringify({}), // fix babel-polyfill in node env.
       "process.env.NODE_ENV": JSON.stringify("production"),
       "__DEV__": false
     }),

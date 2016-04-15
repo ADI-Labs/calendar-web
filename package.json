@@ -32,6 +32,7 @@
   "dependencies": {
     "app-module-path": "^1.0.5",
     "autoprefixer": "^6.3.2",
+    "ava": "^0.14.0",
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
     "babel-polyfill": "^6.5.0",
@@ -64,6 +65,7 @@
     "react-router-redux": "^4.0.0",
     "redux": "^3.3.1",
     "redux-actions": "^0.9.1",
+    "redux-immutablejs": "0.0.8",
     "redux-promise": "^0.5.1",
     "redux-saga": "^0.9.4",
     "redux-thunk": "^2.0.1",
@@ -74,7 +76,6 @@
     "webpack": "^1.12.13"
   },
   "devDependencies": {
-    "ava": "^0.12.0",
     "enzyme": "^2.0.0",
     "eslint": "^2.3.0",
     "eslint-plugin-ava": "^1.2.1",

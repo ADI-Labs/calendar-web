@@ -1,4 +1,3 @@
-
 import { fromJS } from 'immutable'
 
 /*
@@ -6,17 +5,9 @@ import { fromJS } from 'immutable'
  * Isolates Immutable to the reducers.
  */
 export default function createImmutableReducer(initialState, handlers) {
-  return (state = initialState, action) => (
+  return (state = fromJS(initialState), action) => (
     handlers.hasOwnProperty(action.type) ?
-      handlers[action.type](fromJS(state), action)
-    : fromJS(state)
-  )
-}
-
-export function createSimpleReducer(initialState, handlers) {
-  return (state = initialState, action) => (
-    handlers.hasOwnProperty(action.type) ?
-      handlers[action.type](state, action)
+      handlers[action.type](state, action.payload)
     : state
   )
 }

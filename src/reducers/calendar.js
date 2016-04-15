@@ -8,10 +8,10 @@ const initialState = {
 
 /* A regular reducer */
 export default createReducer(initialState, {
-  [NEXT_MONTH]: (state, action) => (
+  [NEXT_MONTH]: (state) => (
     state.update('date', date => date.add(1, 'months'))
   ),
-  [PREV_MONTH]: (state, action) => (
+  [PREV_MONTH]: (state) => (
     state.update('date', date => date.subtract(1, 'months'))
   )
 })
