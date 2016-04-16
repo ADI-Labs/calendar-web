@@ -1,10 +1,13 @@
 // Modify included modules for require()
-require('app-module-path').addPath(require('path').resolve(__dirname, 'src'))
+require('app-module-path').addPath(__dirname)
+require('app-module-path').addPath(require('path').resolve(__dirname, 'app'))
 
-// transform all imports with Babel
-// TODO: this is bad for production, but isn't our fault.
-//    Primary break is 'import' token not recognized. Will wait
-//    until node implements this.
+/*
+ * transform all imports with Babel
+ * TODO: this is bad for production, but isn't our fault.
+ *    Primary break is 'import' token not recognized. Will wait
+ *    until node implements this.
+ */
 require('babel-register')
 
 // transform stylus imports with css-modules

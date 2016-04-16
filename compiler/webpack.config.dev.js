@@ -1,7 +1,10 @@
 "use strict";
 
 var path = require("path");
-var srcPath = path.resolve("src");
+var entryPath = path.resolve(process.cwd(), "client");
+var srcPath = path.resolve(process.cwd(), "app");
+var outPath = path.resolve(process.cwd(), "dist");
+var assetsPath = path.resolve(srcPath, "assets")
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var autoprefixer = require("autoprefixer");
 var webpack = require("webpack");
@@ -14,7 +17,7 @@ module.exports = {
   devServer: {
     // contentBase technically not needed...
     // b/c everything is served from mem
-    contentBase: path.resolve("dist"),
+    contentBase: outPath,
     historyApiFallback: true,
     hot: true,
     inline: true,
@@ -23,27 +26,34 @@ module.exports = {
   },
   target: "node",
   resolve: {
+    alias: {
+      "assets": assetsPath,
+      "app": srcPath
+    },
     root: srcPath
   },
   entry: [
     "babel-polyfill",
-    path.resolve(srcPath, "index"),
+    entryPath,
     "webpack-hot-middleware/client"
   ],
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve("dist"),
+    path: outPath,
     pathinfo: true,
     publicPath: "/"
   },
   module: {
     loaders: [{
       test: /\.js$/,
-      include: srcPath,
+      include: [
+        srcPath,
+        entryPath
+      ],
       loader: "babel"
     }, {
       test: /\.css$/,
-      include: path.resolve(srcPath, "assets/css"),
+      include: path.resolve(assetsPath, "css"),
       loaders: [
         "style",
         "css",
@@ -51,7 +61,7 @@ module.exports = {
       ]
     }, {
       test: /\.styl$/,
-      include: path.resolve(srcPath, "assets/styles"),
+      include: path.resolve(assetsPath, "styles"),
       loaders: [
         "style",
         "css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]",
@@ -59,12 +69,8 @@ module.exports = {
         "stylus"
       ]
     }, {
-      test: /\.json$/,
-      include: path.resolve(srcPath, "assets"),
-      loader: "json"
-    }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
-      include: path.resolve(srcPath, "assets"),
+      include: assetsPath,
       loader: "file"
     }]
   },
@@ -72,8 +78,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: "index.ejs",
-      favicon: path.resolve(srcPath, "assets/images/favicon.png"),
-      template: path.resolve(srcPath, "assets/template.dev.ejs")
+      favicon: path.resolve(assetsPath, "images/favicon.png"),
+      template: path.resolve(assetsPath, "template.dev.ejs")
     }),
     new webpack.DefinePlugin({
       "global": JSON.stringify({}), // fix babel-polyfill in node env.

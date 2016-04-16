@@ -1,7 +1,9 @@
+import ejs from 'ejs'
 import React from 'react'
-import configureStore from 'store/configureStore'
 import { renderToString } from 'react-dom/server'
-import App from 'containers/Root'
+import getDocument from 'server/getDocument'
+import configureStore from 'app/store/configureStore'
+import App from 'app'
 
 export default function renderApp(renderProps) {
   // Create a new Redux store instance
@@ -16,8 +18,5 @@ export default function renderApp(renderProps) {
   const initialState = JSON.stringify(store.getState())
 
   // Send the rendered page back to the client
-  return {
-    content,
-    initialState
-  }
+  return ejs.render(getDocument(), { content, initialState })
 }

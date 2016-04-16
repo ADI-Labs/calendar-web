@@ -1,7 +1,10 @@
 "use strict";
 
 var path = require("path");
-var srcPath = path.resolve("src");
+var entryPath = path.resolve(process.cwd(), "client");
+var srcPath = path.resolve(process.cwd(), "app");
+var outPath = path.resolve(process.cwd(), "dist");
+var assetsPath = path.resolve(srcPath, "assets")
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var autoprefixer = require("autoprefixer");
@@ -10,6 +13,8 @@ var webpack = require("webpack");
 module.exports = {
   resolve: {
     alias: {
+      "assets": assetsPath,
+      "app": srcPath,
       "react": "react-lite",
       "react-dom": "react-lite"
     },
@@ -30,39 +35,38 @@ module.exports = {
       "redux-thunk",
       "reselect"
     ],
-    index: path.resolve(srcPath, "index")
+    index: entryPath
   },
   output: {
-    path: path.resolve("dist"),
+    path: outPath,
     publicPath: "/",
     filename: "js/[name]-[hash].bundle.js"
   },
   module: {
     loaders: [{
       test: /\.js$/,
-      include: srcPath,
+      include: [
+        srcPath,
+        entryPath
+      ],
       loader: "babel"
     }, {
       test: /\.css$/,
-      include: path.resolve(srcPath, "assets/css"),
+      include: path.resolve(assetsPath, "css"),
       loader: ExtractTextPlugin.extract(
         "style",
         "css!postcss"
       )
     }, {
       test: /\.styl$/,
-      include: path.resolve(srcPath, "assets/styles"),
+      include: path.resolve(assetsPath, "styles"),
       loader: ExtractTextPlugin.extract(
         "style",
         "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!stylus"
       )
     }, {
-      test: /\.json$/,
-      include: path.resolve(srcPath, "assets"),
-      loader: "json"
-    }, {
       test: /.*\.(gif|png|jpe?g|svg)$/i,
-      include: path.resolve(srcPath, "assets"),
+      include: assetsPath,
       loaders: [
         "file?hash=sha512&digest=hex&name=images/[hash].[ext]",
         "image-webpack?"
@@ -87,8 +91,8 @@ module.exports = {
     ),
     new HtmlWebpackPlugin({
       filename: "index.ejs",
-      favicon: path.resolve(srcPath, "assets/images/favicon.png"),
-      template: path.resolve(srcPath, "assets/template.prod.ejs")
+      favicon: path.resolve(assetsPath, "images/favicon.png"),
+      template: path.resolve(assetsPath, "template.prod.ejs")
     }),
     new webpack.DefinePlugin({
       "global": JSON.stringify({}), // fix babel-polyfill in node env.
