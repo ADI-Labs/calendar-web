@@ -11,12 +11,7 @@ app.use(webpackDev)
 app.use(webpackHot)
 /* Proxy api requests */
 // TODO all -> use
-app.all('/api/*', (req, res) => {
-  apiProxy.web(req, res, { target: {
-    host: 'localhost',
-    port: 5000
-  }})
-})
+app.all('/api/*', apiProxy)
 app.use(serve)
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 3000
