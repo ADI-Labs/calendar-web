@@ -23,14 +23,18 @@ module.exports = {
   entry: {
     vendor: [
       "babel-polyfill",
+      "immutable",
       "isomorphic-fetch",
       "moment",
-      "react-lite",
+      "react",
+      "react-dom",
+      "react-css-modules",
       "react-redux",
       "react-router",
       "react-router-redux",
       "redux",
       "redux-actions",
+      "redux-immutablejs",
       "redux-promise",
       "redux-thunk",
       "reselect"
