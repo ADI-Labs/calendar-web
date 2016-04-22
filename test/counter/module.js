@@ -2,12 +2,12 @@ import test from 'ava'
 
 /* Reducers */
 import reducerTest from 'immutableReducerTest'
-import counterReducer from 'app/modules/counter.js'
+import reducer from 'app/modules/counter.js'
 
 const num = 4
 
 test('reducer handles increment', reducerTest(
-  counterReducer,
+  reducer,
   { value: num },
   increment(),
   { value: num + 1 },
@@ -15,7 +15,7 @@ test('reducer handles increment', reducerTest(
 ))
 
 test('reducer handles decrement', reducerTest(
-  counterReducer,
+  reducer,
   { value: num },
   decrement(),
   { value: num - 1 }
@@ -27,6 +27,7 @@ import { increment, decrement } from 'app/modules/counter.js'
 
 test('action increment', actionTest(
   increment,
+  null,
   {
     type: 'counter/INCREMENT',
     payload: undefined
@@ -35,6 +36,7 @@ test('action increment', actionTest(
 
 test('action decrement', actionTest(
   decrement,
+  null,
   {
     type: 'counter/DECREMENT',
     payload: undefined
