@@ -1,4 +1,4 @@
-module.exports = {
+{
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -32,4 +32,4 @@ module.exports = {
     "promise/catch-or-return": "error",
     "react/prop-types": "off"
   }
-};
+}
